@@ -18,7 +18,7 @@ class TextViewController: UIViewController {
     
     private lazy var themeTextField: UITextField = {
         let textField = UITextField()
-        textField.text = note.mainLabel
+        textField.text = notebook.mainLabel
         textField.placeholder = "Type your topic"
         textField.font = UIFont.systemFont(ofSize: 14)
         textField.autocapitalizationType = .sentences
@@ -44,7 +44,7 @@ class TextViewController: UIViewController {
     
     private lazy var descriptionTextView: UITextView = {
         let textView = UITextView()
-        textView.text = note.text
+        textView.text = notebook.text
         textView.font = UIFont.systemFont(ofSize: 14)
         textView.layer.borderWidth = 1
         textView.layer.cornerRadius = 6
@@ -65,7 +65,10 @@ class TextViewController: UIViewController {
     }()
     
     var delegate: NewNoteDelegate!
-    var note: Notebook!
+    var notebook: Notebook!
+    
+    private var textFieldPresenter: TextFieldPresenterProtocol!
+    private var textViewPresenter: TextViewPresenterProtocol!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,8 +121,7 @@ class TextViewController: UIViewController {
             red: 220/255,
             green: 190/255,
             blue: 30/255,
-            alpha: 1
-        )
+            alpha: 1)
     }
     
     private func settingKeyboard() {
@@ -127,15 +129,13 @@ class TextViewController: UIViewController {
             self,
             selector: #selector(updateTextView),
             name: UIResponder.keyboardDidShowNotification,
-            object: nil
-        )
+            object: nil)
         
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(updateTextView),
             name: UIResponder.keyboardWillHideNotification,
-            object: nil
-        )
+            object: nil)
     }
     
     @objc private func updateTextView(value: Notification) {
@@ -181,12 +181,26 @@ extension TextViewController: UITextFieldDelegate, UITextViewDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        note.mainLabel = textField.text ?? ""
-        delegate.rewrite(mainLabel: note.mainLabel, text: note.text)
+        textFieldPresenter = TextFieldPresenter(view: self, textField: textField)
+        textFieldPresenter.rewriteNote()
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        note.text = textView.text ?? ""
-        delegate.rewrite(mainLabel: note.mainLabel, text: note.text)
+        textViewPresenter = TextViewPresenter(view: self, textView: textView)
+        textViewPresenter.rewriteNote()
+    }
+}
+
+extension TextViewController: TextFieldViewProtocol {
+    func rewriteNoteTextField(note: String) {
+        notebook.mainLabel = note
+        delegate.rewrite(mainLabel: notebook.mainLabel, text: notebook.text)
+    }
+}
+
+extension TextViewController: TextViewViewProtocol {
+    func rewriteNoteTextView(note: String) {
+        notebook.text = note
+        delegate.rewrite(mainLabel: notebook.mainLabel, text: notebook.text)
     }
 }

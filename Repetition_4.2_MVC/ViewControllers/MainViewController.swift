@@ -46,7 +46,7 @@ class MainViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let textVC = TextViewController()
         textVC.delegate = self
-        textVC.note = notebook[indexPath.row]
+        textVC.notebook = notebook[indexPath.row]
         tableView.deselectRow(at: indexPath, animated: true)
         show(textVC, sender: self)
     }

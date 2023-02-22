@@ -7,6 +7,18 @@
 
 import UIKit
 
+protocol TextEditViewProtocol: AnyObject {
+    func saveNote(note: Notebook)
+}
+
+protocol TextFieldViewProtocol: AnyObject {
+    func rewriteNoteTextField(note: String)
+}
+
+protocol TextViewViewProtocol: AnyObject {
+    func rewriteNoteTextView(note: String)
+}
+
 class TextEditViewController: UIViewController {
     
     private lazy var themeLabel: UILabel = {
@@ -64,6 +76,10 @@ class TextEditViewController: UIViewController {
     
     var delegate: NewNoteDelegate!
     
+    private var presenter: TextEditPresenterProtocol!
+    private var textFieldPresenter: TextFieldPresenterProtocol!
+    private var textViewPresenter: TextViewPresenterProtocol!
+    
     private var editMainLabel: String = ""
     private var editSecondLabel: String = ""
     private var editText: String = ""
@@ -120,17 +136,12 @@ class TextEditViewController: UIViewController {
             red: 220/255,
             green: 190/255,
             blue: 30/255,
-            alpha: 1
-        )
+            alpha: 1)
     }
     
     private func newNote() {
-        let newNote = Notebook(
-            mainLabel: editMainLabel,
-            secondLabel: editSecondLabel,
-            text: editText
-        )
-        delegate.saveNote(note: newNote)
+        presenter = TextEditPresenter(view: self)
+        presenter.createNotebook()
     }
     
     private func settingKeyboard() {
@@ -138,15 +149,13 @@ class TextEditViewController: UIViewController {
             self,
             selector: #selector(updateTextView),
             name: UIResponder.keyboardDidShowNotification,
-            object: nil
-        )
+            object: nil)
         
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(updateTextView),
             name: UIResponder.keyboardWillHideNotification,
-            object: nil
-        )
+            object: nil)
     }
     
     @objc private func updateTextView(value: Notification) {
@@ -161,8 +170,7 @@ class TextEditViewController: UIViewController {
                 top: 0,
                 left: 0,
                 bottom: keyboardFrame.height,
-                right: 0
-            )
+                right: 0)
             descriptionTextView.scrollIndicatorInsets = descriptionTextView.contentInset
         }
         
@@ -192,12 +200,32 @@ extension TextEditViewController: UITextFieldDelegate, UITextViewDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        editMainLabel = textField.text ?? ""
-        delegate.rewrite(mainLabel: editMainLabel, text: editText)
+        textFieldPresenter = TextFieldPresenter(view: self, textField: textField)
+        textFieldPresenter.rewriteNote()
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        editText = textView.text ?? ""
+        textViewPresenter = TextViewPresenter(view: self, textView: textView)
+        textViewPresenter.rewriteNote()
+    }
+}
+
+extension TextEditViewController: TextEditViewProtocol {
+    func saveNote(note: Notebook) {
+        delegate.saveNote(note: note)
+    }
+}
+
+extension TextEditViewController: TextFieldViewProtocol {
+    func rewriteNoteTextField(note: String) {
+        editMainLabel = note
+        delegate.rewrite(mainLabel: editMainLabel, text: editText)
+    }
+}
+
+extension TextEditViewController: TextViewViewProtocol {
+    func rewriteNoteTextView(note: String) {
+        editText = note
         delegate.rewrite(mainLabel: editMainLabel, text: editText)
     }
 }
