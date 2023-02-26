@@ -20,6 +20,7 @@ class MainViewController: UITableViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         setup()
+        fetchNotes()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -38,6 +39,7 @@ class MainViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            StorageManager.shared.deleteNote(note: indexPath.row)
             notebook.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
@@ -46,7 +48,7 @@ class MainViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let textVC = TextViewController()
         textVC.delegate = self
-        textVC.note = notebook[indexPath.row]
+        textVC.notebook = notebook[indexPath.row]
         tableView.deselectRow(at: indexPath, animated: true)
         show(textVC, sender: self)
     }
@@ -80,10 +82,15 @@ class MainViewController: UITableViewController {
         textEditVC.delegate = self
         show(textEditVC, sender: self)
     }
+    
+    private func fetchNotes() {
+        notebook = StorageManager.shared.fetchNotes()
+    }
 }
 
 extension MainViewController: NewNoteDelegate {
     func saveNote(note: Notebook) {
+        StorageManager.shared.saveNote(note: note)
         notebook.append(note)
         tableView.reloadData()
     }
@@ -99,6 +106,7 @@ extension MainViewController: NewNoteDelegate {
         notebook[count].secondLabel = formatter.string(from: currentDate)
         notebook[count].text = text
         
+        StorageManager.shared.rewriteNote(notes: notebook)
         tableView.reloadData()
     }
 }

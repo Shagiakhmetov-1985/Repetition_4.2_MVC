@@ -11,6 +11,7 @@
 		C358C07129A396C100113D24 /* DataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C358C07029A396C100113D24 /* DataTableViewCell.swift */; };
 		C358C07429A3C60500113D24 /* TextEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C358C07329A3C60500113D24 /* TextEditViewController.swift */; };
 		C358C07629A3E8E000113D24 /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C358C07529A3E8E000113D24 /* TextViewController.swift */; };
+		C375FC4929ABCCA30015E2BF /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C375FC4829ABCCA30015E2BF /* StorageManager.swift */; };
 		C3FAC5CF29A2A5140013C365 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FAC5CE29A2A5140013C365 /* AppDelegate.swift */; };
 		C3FAC5D329A2A5140013C365 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FAC5D229A2A5140013C365 /* MainViewController.swift */; };
 		C3FAC5D829A2A5150013C365 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3FAC5D729A2A5150013C365 /* Assets.xcassets */; };
@@ -21,6 +22,7 @@
 		C358C07029A396C100113D24 /* DataTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTableViewCell.swift; sourceTree = "<group>"; };
 		C358C07329A3C60500113D24 /* TextEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditViewController.swift; sourceTree = "<group>"; };
 		C358C07529A3E8E000113D24 /* TextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
+		C375FC4829ABCCA30015E2BF /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		C3FAC5CB29A2A5140013C365 /* Repetition_4.2_MVC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Repetition_4.2_MVC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3FAC5CE29A2A5140013C365 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3FAC5D229A2A5140013C365 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -55,6 +57,22 @@
 			path = TableViewCell;
 			sourceTree = "<group>";
 		};
+		C375FC4629ABC8840015E2BF /* MainViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C3FAC5D229A2A5140013C365 /* MainViewController.swift */,
+			);
+			path = MainViewController;
+			sourceTree = "<group>";
+		};
+		C375FC4729ABCB3C0015E2BF /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C375FC4829ABCCA30015E2BF /* StorageManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		C3FAC5C229A2A5140013C365 = {
 			isa = PBXGroup;
 			children = (
@@ -74,6 +92,8 @@
 		C3FAC5CD29A2A5140013C365 /* Repetition_4.2_MVC */ = {
 			isa = PBXGroup;
 			children = (
+				C375FC4729ABCB3C0015E2BF /* Services */,
+				C375FC4629ABC8840015E2BF /* MainViewController */,
 				C3FAC5E529A2B03A0013C365 /* Supporting */,
 				C358C06F29A3870800113D24 /* Models */,
 				C3FAC5E429A2B0020013C365 /* ViewControllers */,
@@ -86,7 +106,6 @@
 		C3FAC5E429A2B0020013C365 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				C3FAC5D229A2A5140013C365 /* MainViewController.swift */,
 				C358C07329A3C60500113D24 /* TextEditViewController.swift */,
 				C358C07529A3E8E000113D24 /* TextViewController.swift */,
 			);
@@ -182,6 +201,7 @@
 				C3FAC5D329A2A5140013C365 /* MainViewController.swift in Sources */,
 				C358C07429A3C60500113D24 /* TextEditViewController.swift in Sources */,
 				C358C06E29A386FE00113D24 /* Notebook.swift in Sources */,
+				C375FC4929ABCCA30015E2BF /* StorageManager.swift in Sources */,
 				C3FAC5CF29A2A5140013C365 /* AppDelegate.swift in Sources */,
 				C358C07129A396C100113D24 /* DataTableViewCell.swift in Sources */,
 				C358C07629A3E8E000113D24 /* TextViewController.swift in Sources */,

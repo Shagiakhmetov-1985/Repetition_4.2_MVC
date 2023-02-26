@@ -128,8 +128,7 @@ class TextEditViewController: UIViewController {
         let newNote = Notebook(
             mainLabel: editMainLabel,
             secondLabel: editSecondLabel,
-            text: editText
-        )
+            text: editText)
         delegate.saveNote(note: newNote)
     }
     
@@ -138,15 +137,13 @@ class TextEditViewController: UIViewController {
             self,
             selector: #selector(updateTextView),
             name: UIResponder.keyboardDidShowNotification,
-            object: nil
-        )
+            object: nil)
         
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(updateTextView),
             name: UIResponder.keyboardWillHideNotification,
-            object: nil
-        )
+            object: nil)
     }
     
     @objc private func updateTextView(value: Notification) {
@@ -161,8 +158,7 @@ class TextEditViewController: UIViewController {
                 top: 0,
                 left: 0,
                 bottom: keyboardFrame.height,
-                right: 0
-            )
+                right: 0)
             descriptionTextView.scrollIndicatorInsets = descriptionTextView.contentInset
         }
         
