@@ -11,6 +11,7 @@
 		C358C07129A396C100113D24 /* DataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C358C07029A396C100113D24 /* DataTableViewCell.swift */; };
 		C358C07429A3C60500113D24 /* TextEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C358C07329A3C60500113D24 /* TextEditViewController.swift */; };
 		C358C07629A3E8E000113D24 /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C358C07529A3E8E000113D24 /* TextViewController.swift */; };
+		C39A88E229AE840D003698DE /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A88E129AE840D003698DE /* StorageManager.swift */; };
 		C3F955A329A4E87500F4264D /* TextEditPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F955A229A4E87500F4264D /* TextEditPresenter.swift */; };
 		C3FAC5CF29A2A5140013C365 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FAC5CE29A2A5140013C365 /* AppDelegate.swift */; };
 		C3FAC5D329A2A5140013C365 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FAC5D229A2A5140013C365 /* MainViewController.swift */; };
@@ -22,6 +23,7 @@
 		C358C07029A396C100113D24 /* DataTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTableViewCell.swift; sourceTree = "<group>"; };
 		C358C07329A3C60500113D24 /* TextEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditViewController.swift; sourceTree = "<group>"; };
 		C358C07529A3E8E000113D24 /* TextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
+		C39A88E129AE840D003698DE /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		C3F955A229A4E87500F4264D /* TextEditPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditPresenter.swift; sourceTree = "<group>"; };
 		C3FAC5CB29A2A5140013C365 /* Repetition_4.2_MVC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Repetition_4.2_MVC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3FAC5CE29A2A5140013C365 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -57,6 +59,14 @@
 			path = TableViewCell;
 			sourceTree = "<group>";
 		};
+		C39A88E029AE83F6003698DE /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C39A88E129AE840D003698DE /* StorageManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		C3F955A429A4E87C00F4264D /* Presenters */ = {
 			isa = PBXGroup;
 			children = (
@@ -84,6 +94,7 @@
 		C3FAC5CD29A2A5140013C365 /* Repetition_4.2_MVC */ = {
 			isa = PBXGroup;
 			children = (
+				C39A88E029AE83F6003698DE /* Services */,
 				C3FAC5E529A2B03A0013C365 /* Supporting */,
 				C358C06F29A3870800113D24 /* Models */,
 				C3F955A429A4E87C00F4264D /* Presenters */,
@@ -197,6 +208,7 @@
 				C358C07129A396C100113D24 /* DataTableViewCell.swift in Sources */,
 				C358C07629A3E8E000113D24 /* TextViewController.swift in Sources */,
 				C3F955A329A4E87500F4264D /* TextEditPresenter.swift in Sources */,
+				C39A88E229AE840D003698DE /* StorageManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

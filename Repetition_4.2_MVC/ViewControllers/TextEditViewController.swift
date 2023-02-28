@@ -219,13 +219,13 @@ extension TextEditViewController: TextEditViewProtocol {
 extension TextEditViewController: TextFieldViewProtocol {
     func rewriteNoteTextField(note: String) {
         editMainLabel = note
-        delegate.rewrite(mainLabel: editMainLabel, text: editText)
+        delegate.addNote(mainLabel: editMainLabel, text: editText)
     }
 }
 
 extension TextEditViewController: TextViewViewProtocol {
     func rewriteNoteTextView(note: String) {
         editText = note
-        delegate.rewrite(mainLabel: editMainLabel, text: editText)
+        delegate.addNote(mainLabel: editMainLabel, text: editText)
     }
 }

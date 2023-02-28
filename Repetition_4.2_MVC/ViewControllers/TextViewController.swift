@@ -66,6 +66,7 @@ class TextViewController: UIViewController {
     
     var delegate: NewNoteDelegate!
     var notebook: Notebook!
+    var index: Int!
     
     private var textFieldPresenter: TextFieldPresenterProtocol!
     private var textViewPresenter: TextViewPresenterProtocol!
@@ -194,13 +195,13 @@ extension TextViewController: UITextFieldDelegate, UITextViewDelegate {
 extension TextViewController: TextFieldViewProtocol {
     func rewriteNoteTextField(note: String) {
         notebook.mainLabel = note
-        delegate.rewrite(mainLabel: notebook.mainLabel, text: notebook.text)
+        delegate.rewriteNote(mainLabel: notebook.mainLabel, text: notebook.text, index: index)
     }
 }
 
 extension TextViewController: TextViewViewProtocol {
     func rewriteNoteTextView(note: String) {
         notebook.text = note
-        delegate.rewrite(mainLabel: notebook.mainLabel, text: notebook.text)
+        delegate.rewriteNote(mainLabel: notebook.mainLabel, text: notebook.text, index: index)
     }
 }

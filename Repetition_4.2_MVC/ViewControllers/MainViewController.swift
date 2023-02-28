@@ -9,7 +9,8 @@ import UIKit
 
 protocol NewNoteDelegate {
     func saveNote(note: Notebook)
-    func rewrite(mainLabel: String, text: String)
+    func addNote(mainLabel: String, text: String)
+    func rewriteNote(mainLabel: String, text: String, index: Int)
 }
 
 class MainViewController: UITableViewController {
@@ -40,6 +41,7 @@ class MainViewController: UITableViewController {
         if editingStyle == .delete {
             notebook.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
+            StorageManager.shared.deleteNote(note: indexPath.row)
         }
     }
     
@@ -47,6 +49,7 @@ class MainViewController: UITableViewController {
         let textVC = TextViewController()
         textVC.delegate = self
         textVC.notebook = notebook[indexPath.row]
+        textVC.index = indexPath.row
         tableView.deselectRow(at: indexPath, animated: true)
         show(textVC, sender: self)
     }
@@ -73,6 +76,8 @@ class MainViewController: UITableViewController {
         navigationController?.navigationBar.standardAppearance = appearence
         navigationController?.navigationBar.compactAppearance = appearence
         navigationController?.navigationBar.scrollEdgeAppearance = appearence
+        
+        notebook = StorageManager.shared.fetchNotes()
     }
     
     @objc private func addNewNote() {
@@ -86,9 +91,10 @@ extension MainViewController: NewNoteDelegate {
     func saveNote(note: Notebook) {
         notebook.append(note)
         tableView.reloadData()
+        StorageManager.shared.saveNote(note: note)
     }
     
-    func rewrite(mainLabel: String, text: String) {
+    func addNote(mainLabel: String, text: String) {
         let count = notebook.count - 1
         let currentDate = Date()
         let formatter = DateFormatter()
@@ -100,5 +106,20 @@ extension MainViewController: NewNoteDelegate {
         notebook[count].text = text
         
         tableView.reloadData()
+        StorageManager.shared.rewriteNote(notes: notebook)
+    }
+    
+    func rewriteNote(mainLabel: String, text: String, index: Int) {
+        let currentDate = Date()
+        let formatter = DateFormatter()
+        
+        formatter.dateFormat = "dd.MM.YYYY в HH:mm"
+        
+        notebook[index].mainLabel = mainLabel
+        notebook[index].secondLabel = formatter.string(from: currentDate)
+        notebook[index].text = text
+        
+        tableView.reloadData()
+        StorageManager.shared.rewriteNote(notes: notebook)
     }
 }
