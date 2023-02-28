@@ -11,6 +11,13 @@ class DataTableViewCell: UITableViewCell {
     let mainLabel = UILabel()
     let secondLabel = UILabel()
     
+    var viewModel: DataCellViewModelProtocol! {
+        didSet {
+            mainLabel.text = viewModel.mainLabel
+            secondLabel.text = viewModel.secondLabel
+        }
+    }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         

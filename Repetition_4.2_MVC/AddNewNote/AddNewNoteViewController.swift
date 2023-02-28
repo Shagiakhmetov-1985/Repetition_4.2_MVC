@@ -1,5 +1,5 @@
 //
-//  TextViewController.swift
+//  AddNewNoteViewController.swift
 //  Repetition_4.2_MVC
 //
 //  Created by Marat Shagiakhmetov on 20.02.2023.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-class TextViewController: UIViewController {
-
+class AddNewNoteViewController: UIViewController {
+    
     private lazy var themeLabel: UILabel = {
         let label = setLabel(
             size: 21,
@@ -18,7 +18,6 @@ class TextViewController: UIViewController {
     
     private lazy var themeTextField: UITextField = {
         let textField = UITextField()
-        textField.text = notebook.mainLabel
         textField.placeholder = "Type your topic"
         textField.font = UIFont.systemFont(ofSize: 14)
         textField.autocapitalizationType = .sentences
@@ -44,7 +43,6 @@ class TextViewController: UIViewController {
     
     private lazy var descriptionTextView: UITextView = {
         let textView = UITextView()
-        textView.text = notebook.text
         textView.font = UIFont.systemFont(ofSize: 14)
         textView.layer.borderWidth = 1
         textView.layer.cornerRadius = 6
@@ -57,24 +55,25 @@ class TextViewController: UIViewController {
             top: 10,
             left: 3,
             bottom: 10,
-            right: 3)
+            right: 3
+        )
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.delegate = self
         return textView
     }()
     
     var delegate: NewNoteDelegate!
-    var notebook: Notebook!
+    var viewModel: AddNewNoteViewModelProtocol!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         addSubviews(subviews: themeLabel,
                     themeTextField,
                     descriptionLabel,
                     descriptionTextView)
         setConstraints()
         setupDesign()
+        newNote()
         settingKeyboard()
     }
     
@@ -113,11 +112,18 @@ class TextViewController: UIViewController {
     }
     
     private func setupDesign() {
+        view.backgroundColor = .white
         navigationController?.navigationBar.tintColor = UIColor(
             red: 220/255,
             green: 190/255,
             blue: 30/255,
-            alpha: 1)
+            alpha: 1
+        )
+    }
+    
+    private func newNote() {
+        let newNote = viewModel.addNewNote()
+        delegate.saveNote(note: newNote)
     }
     
     private func settingKeyboard() {
@@ -135,26 +141,11 @@ class TextViewController: UIViewController {
     }
     
     @objc private func updateTextView(value: Notification) {
-        let userInfo = value.userInfo
-        let getKeyboardRect = (userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-        let keyboardFrame = view.convert(getKeyboardRect, to: view.window)
-        
-        if value.name == UIResponder.keyboardWillHideNotification {
-            descriptionTextView.contentInset = UIEdgeInsets.zero
-        } else {
-            descriptionTextView.contentInset = UIEdgeInsets(
-                top: 0,
-                left: 0,
-                bottom: keyboardFrame.height,
-                right: 0)
-            descriptionTextView.scrollIndicatorInsets = descriptionTextView.contentInset
-        }
-        
-        descriptionTextView.scrollRangeToVisible(descriptionTextView.selectedRange)
+        viewModel.updateTextView(value: value, textView: descriptionTextView, view: view)
     }
 }
 
-extension TextViewController {
+extension AddNewNoteViewController {
     private func setLabel(size: CGFloat, text: String) -> UILabel {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: size)
@@ -164,7 +155,7 @@ extension TextViewController {
     }
 }
 
-extension TextViewController: UITextFieldDelegate, UITextViewDelegate {
+extension AddNewNoteViewController: UITextFieldDelegate, UITextViewDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         view.endEditing(true)
@@ -176,12 +167,14 @@ extension TextViewController: UITextFieldDelegate, UITextViewDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        notebook.mainLabel = textField.text ?? ""
-        delegate.rewrite(mainLabel: notebook.mainLabel, text: notebook.text)
+        let mainLabel = viewModel.textFromTextField(textField: textField)
+        let text = viewModel.textFromTextView(textView: descriptionTextView)
+        delegate.addNote(mainLabel: mainLabel, text: text)
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        notebook.text = textView.text ?? ""
-        delegate.rewrite(mainLabel: notebook.mainLabel, text: notebook.text)
+        let mainLabel = viewModel.textFromTextField(textField: themeTextField)
+        let text = viewModel.textFromTextView(textView: textView)
+        delegate.addNote(mainLabel: mainLabel, text: text)
     }
 }

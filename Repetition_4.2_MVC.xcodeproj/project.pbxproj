@@ -9,9 +9,13 @@
 /* Begin PBXBuildFile section */
 		C358C06E29A386FE00113D24 /* Notebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = C358C06D29A386FE00113D24 /* Notebook.swift */; };
 		C358C07129A396C100113D24 /* DataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C358C07029A396C100113D24 /* DataTableViewCell.swift */; };
-		C358C07429A3C60500113D24 /* TextEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C358C07329A3C60500113D24 /* TextEditViewController.swift */; };
-		C358C07629A3E8E000113D24 /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C358C07529A3E8E000113D24 /* TextViewController.swift */; };
+		C358C07429A3C60500113D24 /* AddNewNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C358C07329A3C60500113D24 /* AddNewNoteViewController.swift */; };
+		C358C07629A3E8E000113D24 /* EditNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C358C07529A3E8E000113D24 /* EditNoteViewController.swift */; };
 		C375FC4929ABCCA30015E2BF /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C375FC4829ABCCA30015E2BF /* StorageManager.swift */; };
+		C3989F0A29AC850D0066880F /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3989F0929AC850C0066880F /* MainViewModel.swift */; };
+		C3989F0C29AC96FC0066880F /* DataCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3989F0B29AC96FC0066880F /* DataCellViewModel.swift */; };
+		C3989F0F29AD00A40066880F /* AddNewNoteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3989F0E29AD00A40066880F /* AddNewNoteViewModel.swift */; };
+		C3989F1129AD031E0066880F /* EditNoteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3989F1029AD031E0066880F /* EditNoteViewModel.swift */; };
 		C3FAC5CF29A2A5140013C365 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FAC5CE29A2A5140013C365 /* AppDelegate.swift */; };
 		C3FAC5D329A2A5140013C365 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FAC5D229A2A5140013C365 /* MainViewController.swift */; };
 		C3FAC5D829A2A5150013C365 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3FAC5D729A2A5150013C365 /* Assets.xcassets */; };
@@ -20,9 +24,13 @@
 /* Begin PBXFileReference section */
 		C358C06D29A386FE00113D24 /* Notebook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notebook.swift; sourceTree = "<group>"; };
 		C358C07029A396C100113D24 /* DataTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTableViewCell.swift; sourceTree = "<group>"; };
-		C358C07329A3C60500113D24 /* TextEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditViewController.swift; sourceTree = "<group>"; };
-		C358C07529A3E8E000113D24 /* TextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
+		C358C07329A3C60500113D24 /* AddNewNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewNoteViewController.swift; sourceTree = "<group>"; };
+		C358C07529A3E8E000113D24 /* EditNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNoteViewController.swift; sourceTree = "<group>"; };
 		C375FC4829ABCCA30015E2BF /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		C3989F0929AC850C0066880F /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		C3989F0B29AC96FC0066880F /* DataCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCellViewModel.swift; sourceTree = "<group>"; };
+		C3989F0E29AD00A40066880F /* AddNewNoteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewNoteViewModel.swift; sourceTree = "<group>"; };
+		C3989F1029AD031E0066880F /* EditNoteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNoteViewModel.swift; sourceTree = "<group>"; };
 		C3FAC5CB29A2A5140013C365 /* Repetition_4.2_MVC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Repetition_4.2_MVC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3FAC5CE29A2A5140013C365 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3FAC5D229A2A5140013C365 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -49,20 +57,23 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		C358C07229A396CA00113D24 /* TableViewCell */ = {
+		C358C07229A396CA00113D24 /* NoteCell */ = {
 			isa = PBXGroup;
 			children = (
 				C358C07029A396C100113D24 /* DataTableViewCell.swift */,
+				C3989F0B29AC96FC0066880F /* DataCellViewModel.swift */,
 			);
-			path = TableViewCell;
+			path = NoteCell;
 			sourceTree = "<group>";
 		};
-		C375FC4629ABC8840015E2BF /* MainViewController */ = {
+		C375FC4629ABC8840015E2BF /* MainList */ = {
 			isa = PBXGroup;
 			children = (
+				C358C07229A396CA00113D24 /* NoteCell */,
 				C3FAC5D229A2A5140013C365 /* MainViewController.swift */,
+				C3989F0929AC850C0066880F /* MainViewModel.swift */,
 			);
-			path = MainViewController;
+			path = MainList;
 			sourceTree = "<group>";
 		};
 		C375FC4729ABCB3C0015E2BF /* Services */ = {
@@ -71,6 +82,15 @@
 				C375FC4829ABCCA30015E2BF /* StorageManager.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		C3989F0D29ACED6F0066880F /* AddNewNote */ = {
+			isa = PBXGroup;
+			children = (
+				C358C07329A3C60500113D24 /* AddNewNoteViewController.swift */,
+				C3989F0E29AD00A40066880F /* AddNewNoteViewModel.swift */,
+			);
+			path = AddNewNote;
 			sourceTree = "<group>";
 		};
 		C3FAC5C229A2A5140013C365 = {
@@ -93,23 +113,23 @@
 			isa = PBXGroup;
 			children = (
 				C375FC4729ABCB3C0015E2BF /* Services */,
-				C375FC4629ABC8840015E2BF /* MainViewController */,
-				C3FAC5E529A2B03A0013C365 /* Supporting */,
+				C375FC4629ABC8840015E2BF /* MainList */,
+				C3989F0D29ACED6F0066880F /* AddNewNote */,
+				C3FAC5E429A2B0020013C365 /* EditNote */,
 				C358C06F29A3870800113D24 /* Models */,
-				C3FAC5E429A2B0020013C365 /* ViewControllers */,
-				C358C07229A396CA00113D24 /* TableViewCell */,
+				C3FAC5E529A2B03A0013C365 /* Supporting */,
 				C3FAC5E629A2B0440013C365 /* Resources */,
 			);
 			path = Repetition_4.2_MVC;
 			sourceTree = "<group>";
 		};
-		C3FAC5E429A2B0020013C365 /* ViewControllers */ = {
+		C3FAC5E429A2B0020013C365 /* EditNote */ = {
 			isa = PBXGroup;
 			children = (
-				C358C07329A3C60500113D24 /* TextEditViewController.swift */,
-				C358C07529A3E8E000113D24 /* TextViewController.swift */,
+				C358C07529A3E8E000113D24 /* EditNoteViewController.swift */,
+				C3989F1029AD031E0066880F /* EditNoteViewModel.swift */,
 			);
-			path = ViewControllers;
+			path = EditNote;
 			sourceTree = "<group>";
 		};
 		C3FAC5E529A2B03A0013C365 /* Supporting */ = {
@@ -199,12 +219,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3FAC5D329A2A5140013C365 /* MainViewController.swift in Sources */,
-				C358C07429A3C60500113D24 /* TextEditViewController.swift in Sources */,
+				C358C07429A3C60500113D24 /* AddNewNoteViewController.swift in Sources */,
 				C358C06E29A386FE00113D24 /* Notebook.swift in Sources */,
+				C3989F0F29AD00A40066880F /* AddNewNoteViewModel.swift in Sources */,
+				C3989F1129AD031E0066880F /* EditNoteViewModel.swift in Sources */,
 				C375FC4929ABCCA30015E2BF /* StorageManager.swift in Sources */,
 				C3FAC5CF29A2A5140013C365 /* AppDelegate.swift in Sources */,
 				C358C07129A396C100113D24 /* DataTableViewCell.swift in Sources */,
-				C358C07629A3E8E000113D24 /* TextViewController.swift in Sources */,
+				C3989F0C29AC96FC0066880F /* DataCellViewModel.swift in Sources */,
+				C358C07629A3E8E000113D24 /* EditNoteViewController.swift in Sources */,
+				C3989F0A29AC850D0066880F /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

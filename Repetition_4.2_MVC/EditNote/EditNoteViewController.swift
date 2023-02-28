@@ -1,5 +1,5 @@
 //
-//  TextEditViewController.swift
+//  EditNoteViewController.swift
 //  Repetition_4.2_MVC
 //
 //  Created by Marat Shagiakhmetov on 20.02.2023.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-class TextEditViewController: UIViewController {
-    
+class EditNoteViewController: UIViewController {
+
     private lazy var themeLabel: UILabel = {
         let label = setLabel(
             size: 21,
@@ -18,6 +18,7 @@ class TextEditViewController: UIViewController {
     
     private lazy var themeTextField: UITextField = {
         let textField = UITextField()
+        textField.text = viewModel.mainLabel
         textField.placeholder = "Type your topic"
         textField.font = UIFont.systemFont(ofSize: 14)
         textField.autocapitalizationType = .sentences
@@ -43,6 +44,7 @@ class TextEditViewController: UIViewController {
     
     private lazy var descriptionTextView: UITextView = {
         let textView = UITextView()
+        textView.text = viewModel.text
         textView.font = UIFont.systemFont(ofSize: 14)
         textView.layer.borderWidth = 1
         textView.layer.cornerRadius = 6
@@ -55,29 +57,23 @@ class TextEditViewController: UIViewController {
             top: 10,
             left: 3,
             bottom: 10,
-            right: 3
-        )
+            right: 3)
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.delegate = self
         return textView
     }()
     
     var delegate: NewNoteDelegate!
-    
-    private var editMainLabel: String = ""
-    private var editSecondLabel: String = ""
-    private var editText: String = ""
+    var viewModel: EditNoteViewModelProtocol!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         addSubviews(subviews: themeLabel,
                     themeTextField,
                     descriptionLabel,
                     descriptionTextView)
         setConstraints()
         setupDesign()
-        newNote()
         settingKeyboard()
     }
     
@@ -116,20 +112,12 @@ class TextEditViewController: UIViewController {
     }
     
     private func setupDesign() {
+        view.backgroundColor = .white
         navigationController?.navigationBar.tintColor = UIColor(
             red: 220/255,
             green: 190/255,
             blue: 30/255,
-            alpha: 1
-        )
-    }
-    
-    private func newNote() {
-        let newNote = Notebook(
-            mainLabel: editMainLabel,
-            secondLabel: editSecondLabel,
-            text: editText)
-        delegate.saveNote(note: newNote)
+            alpha: 1)
     }
     
     private func settingKeyboard() {
@@ -147,26 +135,11 @@ class TextEditViewController: UIViewController {
     }
     
     @objc private func updateTextView(value: Notification) {
-        let userInfo = value.userInfo
-        let getKeyboardRect = (userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-        let keyboardFrame = view.convert(getKeyboardRect, to: view.window)
-        
-        if value.name == UIResponder.keyboardWillHideNotification {
-            descriptionTextView.contentInset = UIEdgeInsets.zero
-        } else {
-            descriptionTextView.contentInset = UIEdgeInsets(
-                top: 0,
-                left: 0,
-                bottom: keyboardFrame.height,
-                right: 0)
-            descriptionTextView.scrollIndicatorInsets = descriptionTextView.contentInset
-        }
-        
-        descriptionTextView.scrollRangeToVisible(descriptionTextView.selectedRange)
+        viewModel.updateTextView(value: value, textView: descriptionTextView, view: view)
     }
 }
 
-extension TextEditViewController {
+extension EditNoteViewController {
     private func setLabel(size: CGFloat, text: String) -> UILabel {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: size)
@@ -176,7 +149,7 @@ extension TextEditViewController {
     }
 }
 
-extension TextEditViewController: UITextFieldDelegate, UITextViewDelegate {
+extension EditNoteViewController: UITextFieldDelegate, UITextViewDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         view.endEditing(true)
@@ -188,12 +161,16 @@ extension TextEditViewController: UITextFieldDelegate, UITextViewDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        editMainLabel = textField.text ?? ""
-        delegate.rewrite(mainLabel: editMainLabel, text: editText)
+        let mainLabel = viewModel.textFromTextField(textField: textField)
+        let text = viewModel.textFromTextView(textView: descriptionTextView)
+        let index = viewModel.index
+        delegate.rewriteNote(mainLabel: mainLabel, text: text, index: index)
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        editText = textView.text ?? ""
-        delegate.rewrite(mainLabel: editMainLabel, text: editText)
+        let mainLabel = viewModel.textFromTextField(textField: themeTextField)
+        let text = viewModel.textFromTextView(textView: textView)
+        let index = viewModel.index
+        delegate.rewriteNote(mainLabel: mainLabel, text: text, index: index)
     }
 }
